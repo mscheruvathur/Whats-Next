@@ -1,24 +1,27 @@
 import Link from "next/link"
 import ProductList from "@/components/productDetail"
 
-export default function product ({products}) {
-    return ( 
+export default function product({products}) {
+    return (
         <div>
-        <Link href='/'>
-            <h4>back to home</h4>
-        </Link> 
+            <Link href='/'>
+                <h4>back to home</h4>
+            </Link>
 
-        <h1>product page</h1>
+            <h1>product page</h1>
 
-        {
-            products.map(product => {
-                return (
-                    <div key={product.id}>
-                        <ProductList product={product} />
-                    </div>  
-                )
-            })
-        }
+            {
+                products.map(product => {
+                    return (
+                        <div key={product.id}>
+                            <Link href={`products/${product.id}`} passHref>
+                                <ProductList product={product} />
+                            </Link>
+                        </div>
+                    )
+                })
+
+            }
         </div>
     )
 }
