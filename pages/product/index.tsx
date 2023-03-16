@@ -1,35 +1,32 @@
 import Link from "next/link"
 import ProductList from "@/components/productDetail"
+import { GetStaticProps, NextPage } from "next"
+import { GetProductsResult, Products } from "@/types"
 
-export default function product({products}) {
+const Product: NextPage<{ products: Products[] }> = ({ products }) => {
     return (
-        <div>
-            <Link href='/'>
-                <h4>back to home</h4>
-            </Link>
+        <>
+            <div>
+                {
+                    products.map((product) => {
+                        return (
+                            <div key={product.id}>
+                                <Link href={`/product/${product.id}`}>
+                                    <h4>{product.title}</h4>
+                                </Link>
 
-            <h1>product page</h1>
-
-            {
-                products.map(product => {
-                    return (
-                        <div key={product.id}>
-                            <Link href={`products/${product.id}`} passHref>
-                                <ProductList product={product} />
-                            </Link>
-                        </div>
-                    )
-                })
-
-            }
-        </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </>
     )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const data = await response.json()
-
+    const data: GetProductsResult = await response.json()
 
     return {
         props: {
@@ -37,3 +34,5 @@ export async function getStaticProps() {
         }
     }
 }
+
+export default Product

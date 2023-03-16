@@ -1,9 +1,14 @@
+import { Products } from "@/types"
+import { NextPage } from "next"
 
 
-export default function ProductList ({product}) {
+
+const ProductDetail: NextPage<{product: Products}> = ({product}) => {
     return (
-        <div>
-            <h1>{product.title}</h1>
-        </div>
+        <>
+            <h3>{product.title}</h3>
+        </>
     )
 }
+
+export default ProductDetail
